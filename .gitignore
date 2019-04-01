@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#others
+.vscode/
+conf_local.env
+project/logger/
+start_up.sh
+tests_curls.txt
