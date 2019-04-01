@@ -1,0 +1,21 @@
+version: "3"
+services:
+  mysql_api_events:
+    image: mysql:5.7
+    env_file:
+      - ./conf.env
+    volumes:
+      - ./mysql/data/:/var/lib/mysql
+  api-events:
+    depends_on:
+      - mysql_api_events
+    build: ./project
+    ports: 
+      - "127.0.0.1:5000:5000"
+    restart: always
+    env_file:
+      - ./conf.env
+
+volumes:
+  mysql_data:
+    driver: local
