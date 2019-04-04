@@ -4,6 +4,7 @@ from flask_restful import Resource, Api
 from validation.validate_event import validate_event
 from DAO.insert import Insert
 from DAO.list import EventList
+from DAO.list_search import EventListSearch
 from DAO.create_table import create_table
 from helper.event_helper import EventHelper
 
@@ -66,17 +67,18 @@ class List_events(Resource):
             response.status_code = 200
         return response
 
-# class List_search(Resource):
-#     def get(self):
-#         self.event_list = EventList()
-#         json_list = self.event_list.list_events()
-#         if json_list==False:
-#             response = jsonify({'result':'There\'s no list to return.'})
-#             response.status_code = 200
-#         else:
-#             response = jsonify(json_list)
-#             response.status_code = 200
-#         return response
+class List_search(Resource):
+    def get(self):
+        self.event_list_search = EventListSearch()
+        inputed_json = request.get_json()
+        json_list = self.event_list_search.list_events_search(inputed_json)
+        if json_list==False:
+            response = jsonify({'result':'There\'s no list to return.'})
+            response.status_code = 200
+        else:
+            response = jsonify(json_list)
+            response.status_code = 200
+        return response
 
 
 
@@ -85,6 +87,7 @@ api.add_resource(Index, '/')
 # api.add_resource(Login, '/login')
 api.add_resource(Insert_event, '/insert_event')
 api.add_resource(List_events, '/list_events')
+api.add_resource(List_search, '/list_search')
 
 if __name__== '__main__':
     app.run(debug=True)
