@@ -1,5 +1,7 @@
 from model.event import Event
 
-def return_event(event):
-    ev = Event(event['component'], event['version'], event['responsible'], event['status'])
-    return ev
+class EventHelper():
+
+    def return_event(self, event):
+        ev = Event(event['component'], event['version'], event['responsible'], event['status'])
+        return ev
