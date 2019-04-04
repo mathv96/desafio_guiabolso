@@ -24,14 +24,14 @@ jwt = JWT(app, verify, identity)
 #def to the execution of each route
 
 class Index(Resource):
-    @jwt_required
+    @jwt_required()
     def get(self):
         response = jsonify({'result':'API is working.'})
         response.status_code = 200
         return response
 
 class Insert_event(Resource):
-    # @jwt_required
+    # @jwt_required()
     def post(self):
         self.evh = EventHelper()
         self.insert = Insert()
@@ -62,7 +62,7 @@ class Insert_event(Resource):
 
 
 class List_events(Resource):
-    # @jwt_required
+    # @jwt_required()
     def get(self):
         self.event_list = EventList()
         json_list = self.event_list.list_events()
@@ -75,9 +75,10 @@ class List_events(Resource):
         return response
 
 class List_search(Resource):
-    # @jwt_required
+    # @jwt_required()
     def get(self):
         self.event_list_search = EventListSearch()
+        #to do: json validation
         inputed_json = request.get_json()
         json_list = self.event_list_search.list_events_search(inputed_json)
         if json_list==False:
